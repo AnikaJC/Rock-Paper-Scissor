@@ -14,7 +14,9 @@
 // getComputerChoice() 👉 'Rock'
 // getComputerChoice() 👉 'Scissors'
 function getComputerChoice() {
-  
+  const rpsChoice = ['Rock','Paper','Scissors']
+  const randomNum = Math.floor(Math.random() * 3)
+  return rpsChoice[randomNum]
 }
 
 // ** getResult compares playerChoice & computerChoice and returns the score accordingly **
