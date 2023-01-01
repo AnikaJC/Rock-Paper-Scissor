@@ -1,18 +1,6 @@
-/*
-  Rock Paper Scissors 🚀🔥
-  Concepts covered in this project
-    👉 For loops
-    👉 Dom Manipulation
-    👉 Variables
-    👉 Conditionals (if else if)
-    👉 Template Literals
-    👉 Event Listeners
-    👉 Higher order Function (Math.random())
-*/
+/
+const totalScores = {computerScore: 0, playerScore: 0} 
 
-// ** getComputerChoice randomly selects between `rock` `paper` `scissors` and returns that string **
-// getComputerChoice() 👉 'Rock'
-// getComputerChoice() 👉 'Scissors'
 function getComputerChoice() {
   const rpsChoice = ['Rock', 'Paper', 'Scissors']
   const randomNum = Math.floor(Math.random() * 3)
@@ -49,11 +37,31 @@ function showResult(score, playerChoice, computerChoice) {
   // Hint: on a score of -1
   // You should do result.innerText = 'You Lose!'
   // Don't forget to grab the div with the 'result' id!
+  const resultDiv = document.getElementById('result')
+  const handsDiv = document.getElementById('hands')
+  const playerScoreDiv = document.getElementById('player-score')
+  if (score == -1){
+    resultDiv.innerText = 'You lose!'
+  }else if (score == 0){
+    resultDiv.innerText = "It's a tie!"
+  }else{
+    resultDiv.innerText = "You Won!"
+  }
+  handsDiv.innerText = ` 👱 ${playerChoice} vs 🤖 ${computerChoice}`
+  playerScoreDiv.innerText = `Your score: ${totalScores['playerScore']}`
 }
 
 // ** Calculate who won and show it on the screen **
 function onClickRPS(playerChoice) {
-console.log(playerChoice)
+  console.log({playerChoice})
+  const computerChoice = getComputerChoice()
+  console.log({computerChoice})
+  const score = getResult(playerChoice, computerChoice)
+  totalScores['playerScore'] += score
+  
+  console.log({score})
+  console.log(totalScores)
+  showResult(score, playerChoice, computerChoice)
 }
 
 
@@ -62,24 +70,29 @@ function playGame() {
   // use querySelector to select all RPS Buttons
   const rpsButtons = document.querySelectorAll('.rpsButton') 
   //console.log(rpsButtons)
-  // * Adds an on click event listener to each RPS button and every time you click it, it calls the onClickRPS function with the RPS button that was last clicked *
-
-  // 1. loop through the buttons using a forEach loop
-  // 2. Add a 'click' event listener to each button
-  // 3. Call the onClickRPS function every time someone clicks
-  // 4. Make sure to pass the currently selected rps button as an argument
+  
   rpsButtons.forEach(rpsButton =>{
     rpsButton.onclick = () => onClickRPS(rpsButton.value)
   })
 
-
+  const endGameButton = document.getElementById('endGameButton')
+  endGameButton.onclick = () => endGame(totalScores)
   // Add a click listener to the end game button that runs the endGame() function on click
 
 }
 
 // ** endGame function clears all the text on the DOM **
-function endGame() {
+function endGame(totalScores) {
+  totalScores['playerScores'] = 0 
+  totalScores['computerScores'] = 0
 
+  const resultDiv = document.getElementById('result')
+  const handsDiv = document.getElementById('hands')
+  const playerScoreDiv = document.getElementById('player-score')
+
+  resultDiv.innerText = ''
+  handsDiv.innerText = ''
+  playerScoreDiv.innerText = ''
 }
 
 playGame()
