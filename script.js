@@ -1,4 +1,4 @@
-/
+
 const totalScores = {computerScore: 0, playerScore: 0} 
 
 function getComputerChoice() {
